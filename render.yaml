@@ -1,0 +1,12 @@
+# One-click deploy on Render's free tier: New > Blueprint > point at this repo.
+# Free instances have no persistent disk, so the SQLite file resets on each
+# deploy or spin-down and the demo data is re-seeded on boot. See README.
+services:
+  - type: web
+    name: quire
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
