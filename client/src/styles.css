@@ -1073,6 +1073,7 @@ textarea {
   font-size: 0.9rem;
   background: color-mix(in srgb, var(--paper) 55%, transparent);
   animation: drop-in 260ms var(--ease-out);
+  scroll-margin-top: calc(var(--bar-h) + 0.5rem); /* clear the sticky header */
 }
 .notice p {
   margin: 0;

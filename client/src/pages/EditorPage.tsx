@@ -86,6 +86,7 @@ function DocumentEditor({ initial, user }: { initial: DocumentView; user: User }
   const [historyKey, setHistoryKey] = useState(0);
   const [activeIds, setActiveIds] = useState<Set<string>>(new Set());
   const notify = useToast();
+  const conflictRef = useRef<HTMLDivElement>(null);
 
   const canEdit = doc.role !== 'viewer';
   const isOwner = doc.role === 'owner';
@@ -95,6 +96,11 @@ function DocumentEditor({ initial, user }: { initial: DocumentView; user: User }
     setHistoryKey((k) => k + 1);
   }, []);
   const save = useAutosave(initial, onSaved);
+
+  // A conflict needs a decision. If the user is scrolled down the page, bring the choice into view.
+  useEffect(() => {
+    if (save.conflict) conflictRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [save.conflict]);
 
   const editor = useEditor({
     extensions: [
@@ -357,7 +363,7 @@ function DocumentEditor({ initial, user }: { initial: DocumentView; user: User }
       )}
 
       {save.conflict && (
-        <div className="notice notice-conflict" role="alert">
+        <div className="notice notice-conflict" role="alert" ref={conflictRef}>
           <p>
             <strong>{save.conflict.updatedBy ? firstName(save.conflict.updatedBy.name) : 'Someone'}</strong> saved a
             newer version while you were typing. Your latest changes aren’t saved yet.

@@ -2,7 +2,7 @@
 
 A small collaborative document editor. You can write rich-text documents, turn `.txt`, `.md` and `.docx` files into editable documents, share them as editors or viewers, see who else has a document open, watch their edits arrive, and restore any earlier version.
 
-**Live app (full stack):** `<add your Render URL here>`
+**Live app (full stack):** https://quire-ilb6.onrender.com
 **Browser demo (no server):** https://claude.ai/artifact/YCwQ4hzAE6CtxvCk1e9v3g
 **Walkthrough video:** see `VIDEO_URL.txt`
 
