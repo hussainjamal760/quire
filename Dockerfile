@@ -1,5 +1,10 @@
 # Build stage: install everything, build client + server
 FROM node:22-slim AS build
+# better-sqlite3 is a native module. If its prebuilt binary can't be fetched,
+# npm compiles it from source, which needs a toolchain the slim image lacks.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends python3 make g++ \
+ && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY server/package.json server/
